@@ -14,6 +14,22 @@ assert_contains() {
     fi
 }
 
+assert_line_order() {
+    local file="$1"
+    local before="$2"
+    local after="$3"
+    local before_line
+    local after_line
+
+    before_line="$(grep -Fn "$before" "$file" | head -1 | cut -d: -f1)"
+    after_line="$(grep -Fn "$after" "$file" | head -1 | cut -d: -f1)"
+
+    if [[ -z "$before_line" || -z "$after_line" || "$before_line" -ge "$after_line" ]]; then
+        echo "Expected '$before' to appear before '$after' in $file" >&2
+        exit 1
+    fi
+}
+
 assert_contains "$PACKAGE_JSON" '"pi-package"'
 assert_contains "$PACKAGE_JSON" '"extensions"'
 assert_contains "$PACKAGE_JSON" '"./index.ts"'
@@ -28,6 +44,7 @@ assert_contains "$EXTENSION" 'withSession: async (replacementCtx)'
 assert_contains "$EXTENSION" 'ctx.ui.setEditorText(prompt)'
 assert_contains "$EXTENSION" 'typeof ctx.sendUserMessage === "function"'
 assert_contains "$EXTENSION" 'Press Enter to continue'
+assert_line_order "$EXTENSION" 'typeof ctx.sendUserMessage === "function"' 'ctx.ui.setEditorText(prompt)'
 
 for heading in \
     '## Context' \

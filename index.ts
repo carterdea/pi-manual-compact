@@ -170,14 +170,13 @@ ${goalText}`;
 }
 
 async function submitOrStagePrompt(ctx: ReplacementContextWithMaybeSend, prompt: string): Promise<void> {
-	ctx.ui.setEditorText(prompt);
-
 	if (typeof ctx.sendUserMessage === "function") {
 		await ctx.sendUserMessage(prompt);
 		ctx.ui.notify("Handoff submitted in new session", "success");
 		return;
 	}
 
+	ctx.ui.setEditorText(prompt);
 	ctx.ui.notify("Handoff ready. Press Enter to continue", "info");
 }
 
