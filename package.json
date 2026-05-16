@@ -1,0 +1,25 @@
+{
+  "name": "pi-manual-compact",
+  "version": "0.1.0",
+  "description": "Pi extension for generating handoff prompts and continuing in a fresh parent-linked session.",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "manual-compact",
+    "handoff"
+  ],
+  "peerDependencies": {
+    "@earendil-works/pi-agent-core": "*",
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "scripts": {
+    "test": "bash tests/run.sh"
+  }
+}
