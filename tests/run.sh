@@ -34,6 +34,11 @@ assert_contains "$PACKAGE_JSON" '"pi-package"'
 assert_contains "$PACKAGE_JSON" '"extensions"'
 assert_contains "$PACKAGE_JSON" '"./index.ts"'
 
+if grep -Rq '@earendil-works' "$EXTENSION" "$PACKAGE_JSON"; then
+    echo "Expected extension to import the active @mariozechner packages, not stale @earendil-works packages" >&2
+    exit 1
+fi
+
 assert_contains "$EXTENSION" 'pi.registerCommand("manual-compact"'
 assert_contains "$EXTENSION" 'ctx.sessionManager.getBranch()'
 assert_contains "$EXTENSION" 'serializeConversation(convertToLlm(messages))'

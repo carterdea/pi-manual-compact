@@ -9,11 +9,6 @@
     "manual-compact",
     "handoff"
   ],
-  "peerDependencies": {
-    "@earendil-works/pi-agent-core": "*",
-    "@earendil-works/pi-ai": "*",
-    "@earendil-works/pi-coding-agent": "*"
-  },
   "pi": {
     "extensions": [
       "./index.ts"
